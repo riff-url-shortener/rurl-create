@@ -15,7 +15,7 @@ public class RurlCreateApplication {
     private static final int HASH_LENGTH = 8;
     private static final String DOMAIN_NAME = "http://r.url/";
 
-    private RestTemplate restTemplate = new RestTemplate();
+    //private RestTemplate restTemplate = new RestTemplate();
 
     @Bean
     public Function<String, String> shortUrl() {
@@ -28,8 +28,13 @@ public class RurlCreateApplication {
 
     private void writeToChannel(String hash, String longUrl) {
         // TODO parameterize this
-        HttpEntity<String> kvPair = new HttpEntity<>(hash+":"+longUrl);
-        restTemplate.postForLocation("http://url-channel.default.svc.cluster.local", kvPair);
+        try {
+            Thread.sleep(2 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        HttpEntity<String> kvPair = new HttpEntity<>(hash+":"+longUrl);
+//        restTemplate.postForLocation("http://url-channel.default.svc.cluster.local", kvPair);
     }
 
 	public static void main(String[] args) {
